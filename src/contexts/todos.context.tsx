@@ -82,7 +82,7 @@ function TodosProvider({ children }: IProps) {
     dispatch({ type: TodosActions.SetTodos, todos: toSetTodos })
     console.log("1 result", toSetTodos)
   }, [])
-  
+
   useEffect(() => {
     console.log("2 result", todos)
     localStorage.setItem("TODOS", JSON.stringify(todos))

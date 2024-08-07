@@ -12,9 +12,9 @@ function NewTaskForm() {
 
     const taskName = inputRef.current.value
 
-    dispatchTodos({ type: TodosActions.AddTodo, name: taskName });
+    dispatchTodos({ type: TodosActions.AddTodo, name: taskName })
 
-    (e.target as HTMLFormElement).reset()
+    ;(e.target as HTMLFormElement).reset()
   }
 
   return (
