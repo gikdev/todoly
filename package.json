@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@gikdev/tx": "^0.2.1-beta",
     "@rsbuild/core": "1.0.1-beta.4",
     "@rsbuild/plugin-react": "1.0.1-beta.4",
     "@types/node": "^22.0.1",
