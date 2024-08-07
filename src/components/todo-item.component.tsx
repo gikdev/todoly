@@ -1,22 +1,50 @@
 import { TodosActions, useTodosContext } from "@/contexts"
 import type { ITask } from "@/types"
-import { Pen, Trash } from "@phosphor-icons/react"
-import { useId } from "react"
+import { Check, Pen, Trash } from "@phosphor-icons/react"
+import { useId, useState } from "react"
+
+const containerStyles = "flex items-center gap-2 grow shrink"
 
 function TodoItem({ id, name, isCompleted }: ITask) {
   const { dispatchTodos } = useTodosContext()
-  const rawID = useId()
-  const inputID = `task-${id}-${rawID}`
+  const [taskName, setTaskName] = useState(name)
+  const [isEditing, setIsEditing] = useState(false)
+  const inputID = `task-${id}-${useId()}`
 
-  function handleTodoToggle() {
-    dispatchTodos({ type: TodosActions.ToggleTodo, id })
+  const toggleIsEditing = () => setIsEditing(curr => !curr)
+  const handleTodoToggle = () => dispatchTodos({ type: TodosActions.ToggleTodo, id })
+  const handleItemDeletion = () => dispatchTodos({ type: TodosActions.DeleteTodo, id })
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // Update name
+    if (taskName === name) return
+    dispatchTodos({ type: TodosActions.EditTodo, id, name: taskName })
   }
-  function handleItemDeletion() {
-    dispatchTodos({ type: TodosActions.DeleteTodo, id })
-  }
+
+  if (isEditing)
+    return (
+      <li className={containerStyles}>
+        <form className={containerStyles} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={taskName}
+            onChange={e => setTaskName(e.target.value)}
+            className="input input-sm input-bordered grow shrink"
+          />
+          <button
+            type="button"
+            onClick={toggleIsEditing}
+            className="btn btn-sm btn-square btn-outline btn-success"
+          >
+            <Check size={20} />
+          </button>
+        </form>
+      </li>
+    )
 
   return (
-    <li className="flex items-center gap-2">
+    <li className={containerStyles}>
       <input
         onChange={handleTodoToggle}
         checked={isCompleted}
@@ -30,7 +58,11 @@ function TodoItem({ id, name, isCompleted }: ITask) {
       >
         {name}
       </label>
-      <button disabled className="btn btn-sm btn-square btn-outline btn-warning" type="button">
+      <button
+        onClick={toggleIsEditing}
+        className="btn btn-sm btn-square btn-outline btn-warning"
+        type="button"
+      >
         <Pen size={20} />
       </button>
       <button
