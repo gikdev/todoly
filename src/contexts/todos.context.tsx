@@ -80,11 +80,9 @@ function TodosProvider({ children }: IProps) {
     const savedTodos = JSON.parse(localStorage.getItem("TODOS") || "")
     const toSetTodos = savedTodos || INITIAL_TODOS
     dispatch({ type: TodosActions.SetTodos, todos: toSetTodos })
-    console.log("1 result", toSetTodos)
   }, [])
 
   useEffect(() => {
-    console.log("2 result", todos)
     localStorage.setItem("TODOS", JSON.stringify(todos))
   }, [todos])
 
