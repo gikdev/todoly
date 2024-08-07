@@ -1,0 +1,29 @@
+{
+  "name": "tmplx-rsbuild-ts",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "biome lint --write *.* ./src",
+    "format": "biome format --write *.* ./src",
+    "check": "biome check --write *.* ./src",
+    "dev": "rsbuild dev --open",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@rsbuild/core": "1.0.1-beta.4",
+    "@rsbuild/plugin-react": "1.0.1-beta.4",
+    "@types/node": "^22.0.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "daisyui": "^4.12.10",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.2"
+  }
+}
