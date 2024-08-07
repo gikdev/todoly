@@ -20,6 +20,9 @@ function TodoItem({ id, name, isCompleted }: ITask) {
     // Update name
     if (taskName === name) return
     dispatchTodos({ type: TodosActions.EditTodo, id, name: taskName })
+
+    // Toggle editing mode...
+    toggleIsEditing()
   }
 
   if (isEditing)
@@ -32,11 +35,7 @@ function TodoItem({ id, name, isCompleted }: ITask) {
             onChange={e => setTaskName(e.target.value)}
             className="input input-sm input-bordered grow shrink"
           />
-          <button
-            type="button"
-            onClick={toggleIsEditing}
-            className="btn btn-sm btn-square btn-outline btn-success"
-          >
+          <button type="submit" className="btn btn-sm btn-square btn-outline btn-success">
             <Check size={20} />
           </button>
         </form>
