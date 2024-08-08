@@ -4,6 +4,7 @@ import { Check, Pen, Trash } from "@phosphor-icons/react"
 import { useId, useState } from "react"
 
 const containerStyles = "flex items-center gap-2 grow shrink"
+const ICON_SIZE = 32
 
 function TodoItem({ id, name, isCompleted }: ITask) {
   const { dispatchTodos } = useTodosContext()
@@ -34,10 +35,10 @@ function TodoItem({ id, name, isCompleted }: ITask) {
             type="text"
             value={taskName}
             onChange={e => setTaskName(e.target.value)}
-            className="input input-sm input-bordered grow shrink"
+            className="input input-bordered grow shrink"
           />
-          <button type="submit" className="btn btn-sm btn-square btn-outline btn-success">
-            <Check size={20} />
+          <button type="submit" className="btn btn-square btn-outline btn-success">
+            <Check size={ICON_SIZE} />
           </button>
         </form>
       </li>
@@ -49,7 +50,7 @@ function TodoItem({ id, name, isCompleted }: ITask) {
         onChange={handleTodoToggle}
         checked={isCompleted}
         id={inputID}
-        className="checkbox checkbox-primary"
+        className="checkbox checkbox-primary checkbox-lg"
         type="checkbox"
       />
       <label
@@ -60,17 +61,17 @@ function TodoItem({ id, name, isCompleted }: ITask) {
       </label>
       <button
         onClick={toggleIsEditing}
-        className="btn btn-sm btn-square btn-outline btn-warning"
+        className="btn btn-square btn-outline btn-warning"
         type="button"
       >
-        <Pen size={20} />
+        <Pen size={ICON_SIZE} />
       </button>
       <button
         onClick={handleItemDeletion}
-        className="btn btn-sm btn-square btn-outline btn-error"
+        className="btn btn-square btn-outline btn-error"
         type="button"
       >
-        <Trash size={20} />
+        <Trash size={ICON_SIZE} />
       </button>
     </li>
   )
