@@ -1,5 +1,5 @@
 import type { ITask } from "@/types"
-import { createContext, useContext, useEffect, useReducer } from "react"
+import { createContext, useContext, useEffect, useReducer, useRef } from "react"
 
 class Task {
   constructor(
@@ -78,8 +78,8 @@ function TodosProvider({ children }: IProps) {
 
   useEffect(() => {
     const savedTodos = localStorage.getItem("TODOS")
-    const toSetTodos = savedTodos ? JSON.parse(savedTodos) : INITIAL_TODOS
-    dispatch({ type: TodosActions.SetTodos, todos: toSetTodos })
+    const nextTodos = savedTodos ? JSON.parse(savedTodos) : INITIAL_TODOS
+    dispatch({ type: TodosActions.SetTodos, todos: nextTodos })
   }, [])
 
   useEffect(() => {
