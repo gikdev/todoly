@@ -77,8 +77,8 @@ function TodosProvider({ children }: IProps) {
   const value = { todos, dispatchTodos: dispatch }
 
   useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem("TODOS") || "")
-    const toSetTodos = savedTodos || INITIAL_TODOS
+    const savedTodos = localStorage.getItem("TODOS")
+    const toSetTodos = savedTodos ? JSON.parse(savedTodos) : INITIAL_TODOS
     dispatch({ type: TodosActions.SetTodos, todos: toSetTodos })
   }, [])
 
