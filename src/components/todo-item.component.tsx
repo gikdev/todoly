@@ -17,9 +17,10 @@ function TodoItem({ id, name, isCompleted }: ITask) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Update name
-    if (taskName === name) return
-    dispatchTodos({ type: TodosActions.EditTodo, id, name: taskName })
+    if (taskName !== name) {
+      // Update name only if necessary
+      dispatchTodos({ type: TodosActions.EditTodo, id, name: taskName })
+    }
 
     // Toggle editing mode...
     toggleIsEditing()
