@@ -1,5 +1,5 @@
 import { TodoItem } from "@/components/todo-item"
-import { Task, useTodosContext } from "@/shared/todos.cntx"
+import { Task, useTasksAtom } from "@/shared/atoms"
 
 function toReversed<T>(arr: T[]): T[] {
   const clone = [...arr]
@@ -8,12 +8,12 @@ function toReversed<T>(arr: T[]): T[] {
 }
 
 export function TodoList() {
-  const { todos } = useTodosContext()
+  const tasks = useTasksAtom()
 
   return (
     <ul className="flex flex-col gap-4">
-      {!todos.length && <p className="text-center">Nothing to do! 😀</p>}
-      {toReversed<Task>(todos).map(todo => (
+      {!tasks.tasks.length && <p className="text-center">Nothing to do! 😀</p>}
+      {toReversed<Task>(tasks.tasks).map(todo => (
         <TodoItem key={todo.id} {...todo} />
       ))}
     </ul>

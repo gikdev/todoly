@@ -1,4 +1,4 @@
-import { Task, TodosActions, useTodosContext } from "@/shared/todos.cntx"
+import { Task, useTasksAtom } from "@/shared/atoms"
 import { Check, Pen, Trash } from "@phosphor-icons/react"
 import { useId, useState } from "react"
 
@@ -6,21 +6,20 @@ const containerStyles = "flex items-center gap-2 grow shrink"
 const ICON_SIZE = 32
 
 export function TodoItem({ id, name, isCompleted }: Task) {
-  const { dispatchTodos } = useTodosContext()
+  const tasks = useTasksAtom()
   const [taskName, setTaskName] = useState(name)
   const [isEditing, setIsEditing] = useState(false)
   const inputID = `task-${id}-${useId()}`
 
   const toggleIsEditing = () => setIsEditing(curr => !curr)
-  const handleTodoToggle = () => dispatchTodos({ type: TodosActions.ToggleTodo, id })
-  const handleItemDeletion = () => dispatchTodos({ type: TodosActions.DeleteTodo, id })
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleTodoToggle = () => tasks.toggle(id)
+  const handleItemDeletion = () => tasks.remove(id)
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (taskName !== name) {
-      // Update name only if necessary
-      dispatchTodos({ type: TodosActions.EditTodo, id, name: taskName })
-    }
+    // Update name only if necessary
+    if (taskName !== name) tasks.rename(id, taskName)
 
     // Toggle editing mode...
     toggleIsEditing()

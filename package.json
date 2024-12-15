@@ -3,8 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "lint": "biome lint --write *.* ./src",
-    "format": "biome format --write *.* ./src",
     "check": "biome check --write *.* ./src",
     "dev": "rsbuild dev --open",
     "build": "rsbuild build",
@@ -12,6 +10,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "jotai": "^2.10.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

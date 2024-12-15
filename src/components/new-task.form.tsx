@@ -1,9 +1,9 @@
-import { TodosActions, useTodosContext } from "@/shared/todos.cntx"
+import { useTasksAtom } from "@/shared/atoms"
 import { PaperPlaneTilt } from "@phosphor-icons/react"
 import { useRef } from "react"
 
 export function NewTaskForm() {
-  const { dispatchTodos } = useTodosContext()
+  const tasks = useTasksAtom()
   const inputRef = useRef<HTMLInputElement>(null)
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -11,9 +11,10 @@ export function NewTaskForm() {
     if (!inputRef.current?.value) return
 
     const taskName = inputRef.current.value
+    tasks.add(taskName)
 
-    dispatchTodos({ type: TodosActions.AddTodo, name: taskName })
-    ;(e.target as HTMLFormElement).reset()
+    const form = e.target as HTMLFormElement
+    form.reset()
   }
 
   return (
