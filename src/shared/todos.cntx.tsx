@@ -1,7 +1,12 @@
-import type { ITask } from "@/types"
-import { createContext, useContext, useEffect, useReducer, useRef } from "react"
+import { createContext, useContext, useEffect, useReducer } from "react"
 
-class Task {
+interface ITask {
+  id: string
+  name: string
+  isCompleted: boolean
+}
+
+export class Task {
   constructor(
     public id: string,
     public name: string,
@@ -9,7 +14,7 @@ class Task {
   ) {}
 }
 
-enum TodosActions {
+export enum TodosActions {
   AddTodo = "add-todo",
   DeleteTodo = "delete-todo",
   EditTodo = "edit-todo",
@@ -17,23 +22,23 @@ enum TodosActions {
   SetTodos = "set-todos",
 }
 
-interface IProps {
+interface Props {
   children: React.ReactNode
 }
 
-type IAction =
+type Action =
   | { type: TodosActions.AddTodo; name: string }
   | { type: TodosActions.DeleteTodo; id: string }
   | { type: TodosActions.EditTodo; id: string; name: string }
   | { type: TodosActions.ToggleTodo; id: string }
-  | { type: TodosActions.SetTodos; todos: ITask[] }
+  | { type: TodosActions.SetTodos; todos: Task[] }
 
 interface IContext {
-  todos: ITask[]
-  dispatchTodos: React.Dispatch<IAction>
+  todos: Task[]
+  dispatchTodos: React.Dispatch<Action>
 }
 
-const INITIAL_TODOS: ITask[] = [
+const INITIAL_TODOS: Task[] = [
   // new Task(crypto.randomUUID(), "Learn to use Todoly!", false),
   // new Task(crypto.randomUUID(), "Use Todoly!", false),
 ]
@@ -43,7 +48,7 @@ const TodosContext = createContext<IContext>({
   dispatchTodos: () => {},
 })
 
-function reducer(todos: ITask[], action: IAction): ITask[] {
+function reducer(todos: Task[], action: Action): Task[] {
   if (action.type === TodosActions.SetTodos) {
     return action.todos
   }
@@ -72,7 +77,7 @@ function reducer(todos: ITask[], action: IAction): ITask[] {
   return []
 }
 
-function TodosProvider({ children }: IProps) {
+export function TodosProvider({ children }: Props) {
   const [todos, dispatch] = useReducer(reducer, INITIAL_TODOS)
   const value = { todos, dispatchTodos: dispatch }
 
@@ -89,6 +94,4 @@ function TodosProvider({ children }: IProps) {
   return <TodosContext.Provider value={value}>{children}</TodosContext.Provider>
 }
 
-const useTodosContext = (): IContext => useContext(TodosContext)
-
-export { useTodosContext, TodosProvider, TodosActions }
+export const useTodosContext = (): IContext => useContext(TodosContext)

@@ -1,12 +1,11 @@
-import { TodosActions, useTodosContext } from "@/contexts"
-import type { ITask } from "@/types"
+import { Task, TodosActions, useTodosContext } from "@/shared/todos.cntx"
 import { Check, Pen, Trash } from "@phosphor-icons/react"
 import { useId, useState } from "react"
 
 const containerStyles = "flex items-center gap-2 grow shrink"
 const ICON_SIZE = 32
 
-function TodoItem({ id, name, isCompleted }: ITask) {
+export function TodoItem({ id, name, isCompleted }: Task) {
   const { dispatchTodos } = useTodosContext()
   const [taskName, setTaskName] = useState(name)
   const [isEditing, setIsEditing] = useState(false)
@@ -76,5 +75,3 @@ function TodoItem({ id, name, isCompleted }: ITask) {
     </li>
   )
 }
-
-export { TodoItem }

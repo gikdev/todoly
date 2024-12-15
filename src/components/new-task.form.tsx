@@ -1,8 +1,8 @@
-import { TodosActions, useTodosContext } from "@/contexts"
+import { TodosActions, useTodosContext } from "@/shared/todos.cntx"
 import { PaperPlaneTilt } from "@phosphor-icons/react"
 import { useRef } from "react"
 
-function NewTaskForm() {
+export function NewTaskForm() {
   const { dispatchTodos } = useTodosContext()
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -26,5 +26,3 @@ function NewTaskForm() {
     </form>
   )
 }
-
-export { NewTaskForm }

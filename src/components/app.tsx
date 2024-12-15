@@ -1,6 +1,7 @@
-import { NewTaskForm, TodoList } from "@/components"
+import { NewTaskForm } from "./new-task.form"
+import { TodoList } from "./todo.list"
 
-function App() {
+export function App() {
   return (
     <>
       <Header />
@@ -24,5 +25,3 @@ function Header() {
     </header>
   )
 }
-
-export { App }
